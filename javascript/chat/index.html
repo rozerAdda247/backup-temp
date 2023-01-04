@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>NodeJS WebSocket Server</title>
+</head>
+
+<body>
+    <h1>Hello world</h1>
+    <input value="" , name="client" onkeypress="handleChangeInput(event)">
+    <button onclick="sendmessage(event)">Send</button>
+    <div id="render-message">
+
+    </div>
+    <script>
+        const messages = [];
+        const ws = new WebSocket("ws://localhost:8080");
+        ws.addEventListener("open", () => {
+            console.log("We are connected");
+            ws.send("How are you?");
+        });
+
+        ws.addEventListener('message', function (event) {
+            console.log(event);
+            messages.push(event)
+        });
+        ws.addEventListener('delete', function (event) {
+            console.log(event);
+        });
+        var cleint_message = "";
+        function handleChangeInput(e) {
+            cleint_message = cleint_message + e.target.value
+        }
+        function sendmessage() {
+            ws.send(cleint_message);
+            cleint_message = "";
+        }
+        
+        function renderMessage(val){
+
+        }
+    </script>
+</body>
+
+</html>
